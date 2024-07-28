@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .border-input:focus {
+    border: 1px solid #999999;
+  }
+  .bg-submitButton {
+    background: linear-gradient(360deg, #4b36cc 0%, #9c93d4 107.69%);
+  }
+
+  .bg-taskButton {
+    background: linear-gradient(180deg, #4c38c2 0%, #2f2188 100%);
+  }
+}
