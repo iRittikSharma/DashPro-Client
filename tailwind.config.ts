@@ -17,6 +17,7 @@ const config: Config = {
       },
       backgroundColor: {
         inputColor: "#EBEBEB",
+        main: "#F9F9F9",
       },
       borderColor: {
         customBorder: "#CECECE",
