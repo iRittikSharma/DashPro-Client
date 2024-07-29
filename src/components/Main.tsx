@@ -1,4 +1,5 @@
 import FeatureCard from "./FeatureCard";
+import Board from "./Board";
 export default function Main() {
   return (
     <div className="bg-main border border-bg-red-700 h-full flex justify-center">
@@ -10,6 +11,12 @@ export default function Main() {
           <FeatureCard />
           <FeatureCard />
           <FeatureCard />
+        </div>
+
+        {/* Board */}
+
+        <div>
+          <Board />
         </div>
       </div>
     </div>
