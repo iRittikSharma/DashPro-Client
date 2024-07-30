@@ -2,7 +2,7 @@ import { create } from "zustand";
 import getTasksGroupedByColumns from "@/lib/getTasksGroupedByColumns";
 interface BoardState {
   board: Board;
-  getBoard: () => void;
+  getBoard: (id: string | null) => void;
   setBoardState: (board: Board) => void;
 }
 
@@ -10,8 +10,8 @@ export const useBoardStore = create<BoardState>((set) => ({
   board: {
     columns: new Map<TypedColumn, Column>(),
   },
-  getBoard: async () => {
-    const board = await getTasksGroupedByColumns();
+  getBoard: async (userId) => {
+    const board = await getTasksGroupedByColumns(userId);
     set({ board }); // this set will set the global state
   },
 

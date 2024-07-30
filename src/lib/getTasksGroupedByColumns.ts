@@ -1,10 +1,8 @@
 import axios from "axios";
-import { describe } from "node:test";
-import { title } from "process";
-import qs from "qs";
-export default async function getTasksByGroupedColumns() {
+export default async function getTasksByGroupedColumns(UserId: string | null) {
+  if (UserId == null) return;
   const params = {
-    id: "66a7c98bc6a64c1c3c3b857d",
+    id: UserId,
   };
   const url = "http://localhost:4001/api/v1/tasks";
   let config = {
@@ -23,28 +21,45 @@ export default async function getTasksByGroupedColumns() {
     const tasks = response.data.data;
 
     // creating a columns map
-    const columns = tasks.reduce((acc: { get: (arg0: any) => any; set: (arg0: any, arg1: { id: any; todos: never[]; }) => void; }, todo: { status: any; _id: any; title: any; description: any; priority: any; createdAt: any; updatedAt: any; }) => {
-      // In first iteration we will have a empty map
-      if (!acc.get(todo.status)) {
-        // if that particular key is not present we will create that key
-        acc.set(todo.status, {
-          id: todo.status,
-          todos: [],
+    const columns = tasks.reduce(
+      (
+        acc: {
+          get: (arg0: any) => any;
+          set: (arg0: any, arg1: { id: any; todos: never[] }) => void;
+        },
+        todo: {
+          status: any;
+          _id: any;
+          title: any;
+          description: any;
+          priority: any;
+          createdAt: any;
+          updatedAt: any;
+        }
+      ) => {
+        // In first iteration we will have a empty map
+        if (!acc.get(todo.status)) {
+          // if that particular key is not present we will create that key
+          acc.set(todo.status, {
+            id: todo.status,
+            todos: [],
+          });
+        }
+
+        acc.get(todo.status)!.todos.push({
+          id: todo._id,
+          title: todo.title,
+          description: todo.description,
+          status: todo.status,
+          priority: todo.priority,
+          createdAt: todo.createdAt,
+          updatedAt: todo.updatedAt,
         });
-      }
 
-      acc.get(todo.status)!.todos.push({
-        id: todo._id,
-        title: todo.title,
-        description: todo.description,
-        status: todo.status,
-        priority: todo.priority,
-        createdAt: todo.createdAt,
-        updatedAt: todo.updatedAt,
-      });
-
-      return acc;
-    }, new Map<TypedColumn, Todo>());
+        return acc;
+      },
+      new Map<TypedColumn, Todo>()
+    );
 
     // if column doesn't have either of todo , inProgress , underReview , finished then we add them
     const columnTypes: TypedColumn[] = [

@@ -3,11 +3,18 @@ import Link from "next/link";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { useAuthStore } from "@/store/authStore";
+import { SignIn } from "@/lib/signIn";
+import { useUserStore } from "@/store/userStore";
+import { useRouter } from "next/navigation";
+
 export default function Signin() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setToken } = useAuthStore();
+  const setToken = useAuthStore((state) => state.setToken);
+  const setUser = useUserStore((state) => state.setUser);
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -15,21 +22,17 @@ export default function Signin() {
   const handleSignIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    const response = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    const response = await SignIn(email, password);
 
-    const data = await response.json();
-    if (response.ok && data.token) {
+    console.log("rittik", response);
+
+    if (response && response.token) {
       // Store the token in localStorage and Zustand store
-      localStorage.setItem("token", data.token);
-      setToken(data.token);
+      localStorage.setItem("token", response.token);
+      setToken(response.token);
+      setUser(response.id, response.name);
       // Redirect to the home page or any other page
-      window.location.href = "/";
+      router.push("/");
     } else {
       // Handle error (e.g., display error message)
       alert("Invalid email or password");

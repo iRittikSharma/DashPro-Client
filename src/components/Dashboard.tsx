@@ -13,9 +13,11 @@ import {
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import MenuItem from "./MenuItem";
 import { useDrawerStore } from "@/store/DrawerStore";
+import {useUserStore} from "@/store/userStore";
 export default function Dashboard() {
   const [activeItem, setActiveItem] = useState("Home");
   const { openDrawer } = useDrawerStore();
+  const { name } = useUserStore();
 
   const menuItems = [
     { label: "Home", icon: HomeIcon },
@@ -35,7 +37,7 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="ml-5 text-xl">
-              <h2>Jhon Doe</h2>
+              <h2>{name}</h2>
             </div>
           </div>
           {/* 2nd bar */}

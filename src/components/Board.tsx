@@ -4,6 +4,7 @@ import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useBoardStore } from "@/store/BoardStore";
 import React from "react";
 import Column from "./Column";
+import { useUserStore } from "@/store/userStore";
 
 type ColumnArray = [Column];
 function Board() {
@@ -13,8 +14,9 @@ function Board() {
     state.setBoardState,
   ]);
 
+  const { userId } = useUserStore();
   useEffect(() => {
-    getBoard();
+    getBoard(userId);
   }, [getBoard]);
 
   const handleOnDragEnd = (result: DropResult) => {
