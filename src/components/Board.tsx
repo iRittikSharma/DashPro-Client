@@ -81,6 +81,24 @@ function Board() {
       setBoardState({ ...board, columns: newColumns });
     } else {
       // we are dragging to another column
+      const finishTodos = Array.from(finishCol.todos);
+      finishTodos.splice(destination.index, 0, todoMoved);
+
+      // creting a copy of board
+      const newColumns = new Map(board.columns);
+      const newCol = {
+        id: startCol.id,
+        todos: newTodos,
+      };
+      // changinng the corresponding value relative to key
+      newColumns.set(startCol.id, newCol);
+      newColumns.set(finishCol.id, {
+        id: finishCol.id,
+        todos: finishTodos,
+      });
+
+      // Update in the DB
+      setBoardState({ ...board, columns: newColumns });
     }
   };
   return (
