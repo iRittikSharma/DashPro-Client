@@ -3,6 +3,7 @@ import getTasksGroupedByColumns from "@/lib/getTasksGroupedByColumns";
 interface BoardState {
   board: Board;
   getBoard: () => void;
+  setBoardState: (board: Board) => void;
 }
 
 export const useBoardStore = create<BoardState>((set) => ({
@@ -13,4 +14,6 @@ export const useBoardStore = create<BoardState>((set) => ({
     const board = await getTasksGroupedByColumns();
     set({ board }); // this set will set the global state
   },
+
+  setBoardState: (board) => set({ board }),
 }));
