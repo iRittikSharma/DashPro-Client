@@ -15,7 +15,7 @@ export default function Main() {
 
         {/* Board */}
 
-        <div>
+        <div className="mt-10 bg-white rounded-md">
           <Board />
         </div>
       </div>

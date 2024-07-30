@@ -14,6 +14,12 @@
   .bg-taskButton {
     background: linear-gradient(180deg, #4c38c2 0%, #2f2188 100%);
   }
+  .todo-border {
+    border: 1px solid #dedede;
+  }
+  .bg-add-black{
+    background: linear-gradient(180deg, #3A3A3A 0%, #202020 100%);
+  }
 
   .card-border {
     border: 1px solid #f4f4f4;
