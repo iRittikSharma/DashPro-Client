@@ -2,6 +2,7 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 import { Bars3BottomLeftIcon } from "@heroicons/react/24/outline";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import TodoCard from "./TodoCard";
+import { useDrawerStore } from "@/store/DrawerStore";
 type Props = {
   id: TypedColumn;
   todos: Todo[];
@@ -18,6 +19,7 @@ const idToColumnText: {
 };
 
 const Column = ({ id, todos, index }: Props) => {
+  const { openDrawer } = useDrawerStore();
   return (
     <Draggable draggableId={id} index={index}>
       {(provided) => (
@@ -65,7 +67,10 @@ const Column = ({ id, todos, index }: Props) => {
                   {provided.placeholder}
 
                   <div className="mt-5">
-                    <button className="btn w-full text-xl text-white bg-add-black">
+                    <button
+                      className="btn w-full text-xl text-white bg-add-black"
+                      onClick={openDrawer}
+                    >
                       Create New Task
                       <PlusCircleIcon className="w-6 h-6 mr-2" />
                     </button>

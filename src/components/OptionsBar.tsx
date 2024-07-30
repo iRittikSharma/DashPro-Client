@@ -1,6 +1,7 @@
+"use client";
+import { useDrawerStore } from "@/store/DrawerStore";
 import { CalendarIcon } from "@heroicons/react/24/outline";
 import { FunnelIcon } from "@heroicons/react/24/outline";
-import { DocumentMagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { ShareIcon } from "@heroicons/react/24/outline";
 import { SparklesIcon } from "@heroicons/react/24/outline";
@@ -8,6 +9,8 @@ import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
 const OptionsBar = () => {
+  const { openDrawer } = useDrawerStore();
+
   return (
     <div className="flex justify-between">
       <div className="max-h-[90%]">
@@ -34,7 +37,10 @@ const OptionsBar = () => {
           <ShareIcon className="w-6 h-7 mr-3 ml-3" />
         </div>
         <div className="flex items-center">
-          <button className="btn w-full text-xs text-white bg-taskButton space-between">
+          <button
+            className="btn w-full text-xs text-white bg-taskButton space-between"
+            onClick={openDrawer}
+          >
             Create new
             <PlusCircleIcon className="w-6 h-6 mr-1" />
           </button>

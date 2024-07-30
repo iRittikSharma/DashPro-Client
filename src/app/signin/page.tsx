@@ -2,10 +2,38 @@
 import Link from "next/link";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
+import { useAuthStore } from "@/store/authStore";
 export default function Signin() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { setToken } = useAuthStore();
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleSignIn = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+    if (response.ok && data.token) {
+      // Store the token in localStorage and Zustand store
+      localStorage.setItem("token", data.token);
+      setToken(data.token);
+      // Redirect to the home page or any other page
+      window.location.href = "/";
+    } else {
+      // Handle error (e.g., display error message)
+      alert("Invalid email or password");
+    }
   };
   return (
     <>
@@ -25,6 +53,8 @@ export default function Signin() {
                     id="email"
                     className="bg-inputColor text-gray-900 rounded-lg block w-full p-2.5 border-input"
                     placeholder="Your Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -36,6 +66,8 @@ export default function Signin() {
                       id="password"
                       placeholder="Password"
                       className="bg-inputColor text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 pr-10"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       required
                     />
                     <div
@@ -50,7 +82,10 @@ export default function Signin() {
                     </div>
                   </div>
                 </div>
-                <button className="w-full text-white bg-submitButton hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                <button
+                  onClick={handleSignIn}
+                  className="w-full text-white bg-submitButton hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                >
                   Sign in
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
