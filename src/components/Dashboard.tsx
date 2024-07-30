@@ -12,8 +12,10 @@ import {
 } from "@heroicons/react/24/outline";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import MenuItem from "./MenuItem";
+import { useDrawerStore } from "@/store/DrawerStore";
 export default function Dashboard() {
   const [activeItem, setActiveItem] = useState("Home");
+  const { openDrawer } = useDrawerStore();
 
   const menuItems = [
     { label: "Home", icon: HomeIcon },
@@ -67,7 +69,10 @@ export default function Dashboard() {
           </div>
           {/* button */}
           <div className="mt-5 w-full">
-            <button className="btn w-full text-xl text-white bg-taskButton">
+            <button
+              className="btn w-full text-xl text-white bg-taskButton"
+              onClick={openDrawer}
+            >
               Create New Task
               <PlusCircleIcon className="w-6 h-6 mr-2" />
             </button>
