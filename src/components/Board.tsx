@@ -112,9 +112,10 @@ function Board() {
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
-            {[...board.columns.entries()].map(([id, column], index) => (
-              <Column key={id} id={id} todos={column.todos} index={index} />
-            ))}
+            {board &&
+              [...board.columns.entries()].map(([id, column], index) => (
+                <Column key={id} id={id} todos={column.todos} index={index} />
+              ))}
             {provided.placeholder}
           </div>
         )}

@@ -1,5 +1,5 @@
 interface Board {
-  columns: map<TypedColumn, Todo>;
+  columns: map<TypedColumn, Column>;
 }
 
 type TypedColumn = "todo" | "inProgress" | "underReview" | "finished";
@@ -19,4 +19,5 @@ interface Todo {
   priority: Priority;
   createdAt: string;
   updatedAt: string;
+  deadline:string;
 }

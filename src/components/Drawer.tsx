@@ -5,23 +5,43 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ArrowsPointingOutIcon } from "@heroicons/react/24/outline";
 import { ShareIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/outline";
-import { todo } from "node:test";
 import { SunIcon } from "@heroicons/react/24/outline";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { CalendarIcon } from "@heroicons/react/24/outline";
 import { PencilIcon } from "@heroicons/react/24/outline";
+import { useAuthStore } from "@/store/authStore";
+import { useUserStore } from "@/store/userStore";
+import { addTask } from "@/lib/addTask";
+import { useBoardStore } from "@/store/BoardStore";
+import Board from "./Board";
 // import { XIcon } from "@heroicons/react/24/outline";
 
 const Drawer: FC = () => {
   const { isOpen, closeDrawer } = useDrawerStore();
-
+  const { token } = useAuthStore();
+  const { userId } = useUserStore();
+  const [board, setBoardState] = useBoardStore((state) => [
+    state.board,
+    state.setBoardState,
+  ]);
   const [newTodoData, setNewTodoData] = useState({
     title: "",
     description: "",
     priority: "",
     status: "",
     deadline: "",
+    userId: userId,
   });
+
+  // const obj = {
+  //     createdAt: "2024-07-30T23:32:39.345Z";
+  //     deadline: "2024-07-16";
+  //     description: "something";
+  //     priority: "Medium";
+  //     status: "inProgress";
+  //     title: "ReactTutorial";
+  //     updatedAt: "2024-07-30T23:32:39.345Z";
+  // }
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
@@ -29,6 +49,27 @@ const Drawer: FC = () => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleAddTask = async (e: { preventDefault: () => void }) => {
+    const response = await addTask(token, newTodoData);
+    const addedTask: Todo = {
+      id: response._id,
+      createdAt: response.createdAt,
+      deadline: response.deadline,
+      description: response.description,
+      priority: response.priority,
+      status: response.status,
+      title: response.title,
+      updatedAt: response.updatedAt,
+    };
+    // update the state of the board
+    const newColumns = new Map(board.columns);
+    const columnToUpdate: Column = newColumns.get(response.status) as Column;
+    columnToUpdate.todos.push(addedTask);
+    console.log(columnToUpdate);
+    newColumns.set(response.status, columnToUpdate);
+    setBoardState({ ...board, columns: newColumns });
   };
 
   return (
@@ -161,7 +202,9 @@ const Drawer: FC = () => {
         </div>
 
         <div className="mt-10 mr-10">
-          <button className="btn w-full">Add Task</button>
+          <button onClick={handleAddTask} className="btn w-full">
+            Add Task
+          </button>
         </div>
       </div>
     </div>
