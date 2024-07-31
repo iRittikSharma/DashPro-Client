@@ -28,10 +28,10 @@ export default function Main() {
   return (
     <div className="bg-main border border-bg-red-700 h-full flex justify-center">
       <div className="w-[98%] h-full ">
-        <div className="mt-5 barlow-semibold text-4xl">
+        <div className="mt-5 barlow-semibold text-2xl xl:text-4xl">
           <h1>Good morning, Joe!</h1>
         </div>
-        <div className="flex gap-2 justify-between mt-5">
+        <div className="flex gap-2 justify-between mt-3 xl:mt-5">
           {featureData?.map((data) => (
             <FeatureCard
               key={data.id}

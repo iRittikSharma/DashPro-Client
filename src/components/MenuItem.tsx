@@ -23,9 +23,9 @@ export default function MenuItem({
         isActive ? "bg-gray-200" : "hover:bg-gray-100 text-gray-700"
       } cursor-pointer`}
     >
-      <Icon className="w-6 h-6 mr-3" />
+      <Icon className=" w-4 h-4 xl:w-6 xl:h-6 mr-3" />
       <Link
-        className={`text-sm font-medium text-black ${
+        className={` text-xs lg:text-sm font-medium text-black ${
           isActive ? "text-blue-500" : "text-gray-700"
         }`}
         href={href}

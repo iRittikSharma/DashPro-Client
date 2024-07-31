@@ -38,10 +38,10 @@ const Column = ({ id, todos, index }: Props) => {
                   snapshot.isDraggingOver ? "bg-green-200" : "bg-white"
                 }`}
               >
-                <h2 className="flex justify-between items-center barlow-medium text-gray-500 px-5 py-3 text-xl">
+                <h2 className="flex justify-between items-center barlow-medium text-gray-500 px-5 py-3 text:lg xl:text-xl">
                   {idToColumnText[id]}
                   <span>
-                    <Bars3BottomLeftIcon className="h-7 w-7 text-gray-500" />
+                    <Bars3BottomLeftIcon className="h-5 w-5 xl:h-7 xl:w-7 text-gray-500" />
                   </span>
                 </h2>
 
@@ -68,11 +68,11 @@ const Column = ({ id, todos, index }: Props) => {
 
                   <div className="mt-5">
                     <button
-                      className="btn w-full text-xl text-white bg-add-black"
+                      className="btn max-h-[30%] w-full text-[0.65rem] lg:text-xs xl:text-lg text-white bg-add-black"
                       onClick={openDrawer}
                     >
                       Create New Task
-                      <PlusCircleIcon className="w-6 h-6 mr-2" />
+                      <PlusCircleIcon className="w-5 h-5 lg:w-6 lg:h-6 mr-2" />
                     </button>
                   </div>
                 </div>

@@ -38,12 +38,12 @@ export default function Home() {
     fetchUserDetails();
   }, [router, token]);
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex flex-col lg:flex-row h-screen overflow-hidden">
       <Drawer />
-      <div className="w-1/5">
+      <div className="lg:w-1/5">
         <Dashboard />
       </div>
-      <div className="w-4/5 overflow-y-scroll">
+      <div className=" lg:w-4/5 overflow-y-scroll">
         <Main />
       </div>
     </div>

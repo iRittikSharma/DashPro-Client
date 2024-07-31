@@ -82,7 +82,7 @@ const Drawer: FC = () => {
         className="absolute inset-0 bg-gray-600 bg-opacity-75"
         onClick={closeDrawer}
       ></div>
-      <div className="absolute right-0 top-0 h-full w-1/3 bg-white p-4 shadow-lg">
+      <div className="absolute right-0 top-0 h-full w-full lg:w-1/2 xl:1/3 bg-white p-4 shadow-lg">
         {/* Top bar of the Drawer */}
         <div className="flex justify-between">
           <div className="flex">

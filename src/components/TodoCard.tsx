@@ -35,26 +35,26 @@ function TodoCard({
       {...dragHandleProps}
       ref={innerRef}
     >
-      <h1 className="barlow-semibold text-gray-500 text-base mb-2">
+      <h1 className="barlow-semibold text-gray-500 text-base xl:text-base mb-2">
         {todo.title}
       </h1>
-      <p className="text-base barlow-regular text-gray-500 mb-2">
+      <p className="text- xl:text-base barlow-regular text-gray-500 mb-2">
         {todo.description}
       </p>
       <div
         className={`${
           chipColor[todo.priority]
-        } rounded-lg max-w-[25%] text-xs text-center mt-2 mb-2 text-[#FFFFFF] py-2 barlow-light`}
+        } rounded-lg max-w-[30%] xl:max-w-[25%] text-[0.65rem] xl:text-xs text-center mt-2 mb-2 text-[#FFFFFF] py-1 xl:py-2 barlow-light`}
       >
         {todo.priority}
       </div>
       <div className="flex items-center mt-3">
-        <ClockIcon className="h-7 w-7 text-gray-500" />
-        <span className="ml-3 text-gray-500 text-base">
+        <ClockIcon className=" w-5 h-5 xl:h-7 xl:w-7 text-gray-500" />
+        <span className="ml-3 text-gray-500 text-sm xl:text-base">
           {todo.deadline || "2024-07-30"}
         </span>
       </div>
-      <div className="mt-2 text-gray-500 barlow-medium">
+      <div className="mt-2 text-gray-500 text-xs xl:text:sm barlow-medium">
         {timeAgo(todo.updatedAt)}
       </div>
     </div>
