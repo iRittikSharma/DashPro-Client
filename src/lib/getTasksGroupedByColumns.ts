@@ -4,7 +4,7 @@ export default async function getTasksByGroupedColumns(UserId: string | null) {
   const params = {
     id: UserId,
   };
-  const url = "http://localhost:4001/api/v1/tasks";
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/tasks`;
   let config = {
     method: "get",
     params: params,

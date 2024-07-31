@@ -19,7 +19,7 @@ export async function addTask(jwToken: string | null, task: task | null) {
 
   try {
     const response = await axios.post(
-      "http://localhost:4001/api/v1/addTask", // Note: Ensure this URL is correct and includes the protocol (http/https)
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/addTask`, // Note: Ensure this URL is correct and includes the protocol (http/https)
       data,
       {
         headers: {

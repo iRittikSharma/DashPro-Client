@@ -50,7 +50,9 @@ function TodoCard({
       </div>
       <div className="flex items-center mt-3">
         <ClockIcon className="h-7 w-7 text-gray-500" />
-        <span className="ml-3 text-gray-500 text-base">2024-08-15</span>
+        <span className="ml-3 text-gray-500 text-base">
+          {todo.deadline || "2024-07-30"}
+        </span>
       </div>
       <div className="mt-2 text-gray-500 barlow-medium">
         {timeAgo(todo.updatedAt)}

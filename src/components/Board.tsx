@@ -17,7 +17,7 @@ function Board() {
   const { userId } = useUserStore();
   useEffect(() => {
     getBoard(userId);
-  }, [getBoard]);
+  }, [getBoard, userId]);
 
   const handleOnDragEnd = (result: DropResult) => {
     // what heppen when we let go drag and drop

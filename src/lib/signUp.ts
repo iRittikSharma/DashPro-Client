@@ -17,7 +17,7 @@ export async function SignUpUser(
 
   try {
     const response = await axios.post(
-      "http://localhost:4001/api/v1/signUp", // Note: Ensure this URL is correct and includes the protocol (http/https)
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/signUp`, // Note: Ensure this URL is correct and includes the protocol (http/https)
       data,
       {
         headers: {
