@@ -18,11 +18,9 @@ export async function getUserDetails(jwToken: string | null) {
       }
     );
     const responseData = response.data;
-    console.log(responseData);
 
     return responseData.data;
   } catch (error) {
     console.log(error);
-    alert("Error fetching the user data");
   }
 }

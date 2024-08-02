@@ -21,11 +21,9 @@ export async function SignIn(email: string, password: string) {
       }
     );
     const responseData = response.data;
-    console.log(responseData);
 
     return responseData.data;
   } catch (error) {
-    console.log(error);
     alert("Error fetching the data");
   }
 }

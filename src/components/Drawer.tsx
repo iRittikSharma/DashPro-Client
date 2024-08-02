@@ -67,7 +67,6 @@ const Drawer: FC = () => {
     const newColumns = new Map(board.columns);
     const columnToUpdate: Column = newColumns.get(response.status) as Column;
     columnToUpdate.todos.push(addedTask);
-    console.log(columnToUpdate);
     newColumns.set(response.status, columnToUpdate);
     setBoardState({ ...board, columns: newColumns });
   };

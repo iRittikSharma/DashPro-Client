@@ -5,21 +5,25 @@ import { useBoardStore } from "@/store/BoardStore";
 import React from "react";
 import Column from "./Column";
 import { useUserStore } from "@/store/userStore";
+import { useAuthStore } from "@/store/authStore";
+import { useRouter } from "next/navigation";
+import { updateTask } from "@/lib/updateTask";
 
-type ColumnArray = [Column];
 function Board() {
+  const router = useRouter();
   const [board, getBoard, setBoardState] = useBoardStore((state) => [
     state.board,
     state.getBoard,
     state.setBoardState,
   ]);
+  const { token } = useAuthStore();
 
   const { userId } = useUserStore();
   useEffect(() => {
     getBoard(userId);
   }, [getBoard, userId]);
 
-  const handleOnDragEnd = (result: DropResult) => {
+  const handleOnDragEnd = async (result: DropResult) => {
     // what heppen when we let go drag and drop
     const { destination, source, type } = result;
 
@@ -39,13 +43,9 @@ function Board() {
     }
 
     const columns = Array.from(board.columns) as [TypedColumn, Column][];
-    console.log(columns);
 
     const startColIndex = columns[Number(source.droppableId)];
     const finishCoIndex = columns[Number(destination.droppableId)];
-
-    console.log(startColIndex, finishCoIndex);
-
     const startCol: Column = {
       id: startColIndex[0],
       todos: startColIndex[1].todos,
@@ -100,6 +100,20 @@ function Board() {
       });
 
       // Update in the DB
+      if (!token) {
+        router.push("/signin");
+        return;
+      }
+
+      const isUpdated = await updateTask(
+        todoMoved.id,
+        { status: finishCol.id },
+        token
+      );
+      if (!isUpdated) {
+        alert("something went wrong");
+        return;
+      }
       setBoardState({ ...board, columns: newColumns });
     }
   };

@@ -6,7 +6,6 @@ export async function SignUpUser(
   password: string,
   name: string
 ) {
-  console.log(email, password);
 
   // Serialize data to application/x-www-form-urlencoded format
   const data = qs.stringify({
@@ -26,11 +25,9 @@ export async function SignUpUser(
       }
     );
     const responseData = response.data;
-    console.log(responseData);
 
     return responseData.data;
   } catch (error) {
-    console.log(error);
     alert("Error fetching the data");
   }
 }

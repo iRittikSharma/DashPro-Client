@@ -26,7 +26,6 @@ export default function Home() {
           if (!data && !data._id && !data.name) {
             router.push("/signin");
           }
-          console.log(data);
           setUser(data._id, data.name); // Store user data in the user store
           setToken(localtoken);
         } catch (error) {
